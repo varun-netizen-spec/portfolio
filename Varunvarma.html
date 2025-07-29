@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Varun Varma | ML Developer Portfolio</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #222;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: #0366d6;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #014b94;
+    }
+
+    header {
+      background: #0b3d91;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.2rem;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    nav a:hover {
+      color: #ffb703;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+    }
+
+    /* Section styling with frames */
+    section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+      color: #0b3d91;
+      margin-bottom: 1.25rem;
+      border-bottom: 3px solid #ffb703;
+      display: inline-block;
+      padding-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    /* About Me */
+    #about p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    /* Skills: neat bullet with color */
+    #skills ul {
+      list-style-type: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+    #skills li {
+      background: #e6f0ff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #0b3d91;
+      box-shadow: 0 3px 8px rgba(11,61,145,0.2);
+      transition: background 0.3s ease;
+      cursor: default;
+    }
+    #skills li:hover {
+      background: #ffb703;
+      color: #000;
+      box-shadow: 0 6px 15px rgba(255,183,3,0.3);
+    }
+
+    /* Projects - Hover Cards with animations */
+    #projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(11,61,145,0.3);
+    }
+    .project-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #0b3d91, #ffb703);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: 50%;
+      z-index: 0;
+      filter: blur(70px);
+    }
+    .project-card:hover::before {
+      opacity: 0.3;
+    }
+    .project-title {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.7rem;
+      position: relative;
+      z-index: 1;
+      color: #0b3d91;
+    }
+    .project-desc {
+      font-size: 1rem;
+      color: #555;
+      position: relative;
+      z-index: 1;
+      min-height: 60px;
+    }
+
+    /* Experience Section */
+    #experience ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    #experience li {
+      margin-bottom: 1.1rem;
+      padding-left: 1rem;
+      border-left: 4px solid #ffb703;
+      color: #333;
+    }
+    #experience li strong {
+      color: #0b3d91;
+    }
+    #experience a {
+      color: #ffb703;
+      font-weight: 600;
+    }
+    #experience a:hover {
+      color: #e08900;
+    }
+
+    /* Contact form */
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 0 auto 1rem;
+    }
+    #contact label {
+      font-weight: 600;
+      color: #0b3d91;
+    }
+    #contact input,
+    #contact textarea {
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #0b3d91;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    #contact input:focus,
+    #contact textarea:focus {
+      border-color: #ffb703;
+      outline: none;
+    }
+    #contact button {
+      padding: 0.9rem;
+      background-color: #0b3d91;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #contact button:hover {
+      background-color: #ffb703;
+      color: #000;
+    }
+
+    /* Profile Links Buttons */
+    .profile-links {
+      text-align: center;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .profile-links a {
+      background: #0b3d91;
+      color: white;
+      padding: 0.6rem 1.3rem;
+      border-radius: 25px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(11,61,145,0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+    }
+    .profile-links a:hover {
+      background: #ffb703;
+      color: #000;
+      box-shadow: 0 6px 18px rgba(255,183,3,0.7);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.3rem 1rem;
+      background: #0b3d91;
+      color: white;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      nav a {
+        margin: 0 10px;
+        font-size: 0.95rem;
+      }
+      header h1 {
+        font-size: 2.2rem;
+      }
+      #projects {
+        grid-template-columns: 1fr;
+      }
+      #skills ul {
+        grid-template-columns: 1fr;
+      }
+      .profile-links {
+        flex-direction: column;
+      }
+      .profile-links a {
+        width: 80%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Varun Varma</h1>
+  <p>Machine Learning & AI Developer | Tech Innovator </p>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <!-- About Me Section -->
+  <section id="about" tabindex="0">
+    <h2>About Me</h2>
+    <p>
+      I am a passionate Machine Learning Developer with expertise in building AI-driven solutions across
+      diverse domains such as Agriculture, HealthTech, VLSI, and Smart Cities. I have hands-on experience with
+      Python, Flask, FastAPI and computer vision, striving to create impactful and
+      innovative projects that solve real-world problems.
+    </p>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" tabindex="0">
+    <h2>Skills</h2>
+    <ul>
+      <li>Python, Flask, FastAPI, NumPy, Pandas</li>
+      <li>Machine Learning & Deep Learning (TensorFlow, Scikit-Learn)</li>
+      <li>HTML, CSS, JavaScript, Node.js, React</li>
+      <li>NLP & AI Chatbots</li>
+      <li>Cloud Deployment & CI/CD (Heroku, GitHub Actions)</li>
+      <li>Domain Expertise: AgriTech, MedTech, Smart Grid</li>
+    </ul>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" tabindex="0">
+    <h2>Experience</h2>
+    <ul>
+      <li>
+        <strong>Machine Learning Intern</strong> — Elevate Labs <br />
+        <em>Top Performer</em><br />
+        Worked on advanced ML models for behavioral analytics and stress prediction.<br />
+        Project link: <a href="https://github.com/varun-netizen-spec/Plant_Disease_Prediction_System.git" target="_blank" rel="noopener">GitHub Repository</a>
+      </li>
+      <li>
+        Completed competitive coding challenges and training on <a href="https://www.skillrack.com/faces/resume.xhtml?id=442281&key=5bbb6a2188f147d73e60a2168277bb0d388c6fd3" rel="noopener">SkillRack</a>.
+      </li>
+      <li>
+        Participated in coding assessments on <a href="https://www.naukri.com/code360/profile/56b41740-c5b9-498c-8a8b-8cf61ed735f0" target="_blank" rel="noopener">Code360</a>.
+      </li>
+      <li>
+        Practicing algorithm problems regularly on <a href="https://leetcode.com/u/varun_varma_91/" target="_blank" rel="noopener">LeetCode</a>.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" tabindex="0">
+    <h2>Projects</h2>
+
+    <div class="project-card" tabindex="0" aria-label="AgroStock project">
+      <div class="project-title">AgroStock – smart Analytics for Cattle Health System</div>
+      <div class="project-desc">
+        An AI Powered SaaS Application where farmers can track their livestock status and improve their agricultural productivity by 39.33%. Achieved 81.93% Accuracy while training the ML Model and built an Convolutional Neural Network (CNN).
+      </div>
+    </div>
+
+    <div class="project-card" tabindex="0" aria-label="AI Personal Assistant Chatbot">
+      <div class="project-title">AI-Powered Personal Assistant Chatbot</div>
+      <div class="project-desc">
+        Gender-adaptive chatbot built with Python and NLP that tracks user goals, sends reminders, and offers personalized advice.
+      </div>
+    </div>
+    <div class="project-card" tabindex="0" aria-label="FoodSaver App">
+      <div class="project-title">FoodSaver – Expiry Tracker & Recipe Generator</div>
+      <div class="project-desc">
+        Mobile app prototype that scans stored food items and suggests recipes based on dietary preferences to reduce waste.
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section with Form & Profile Links -->
+  <section id="contact" tabindex="0">
+    <h2>Contact Me</h2>
+    <form action="mailto:varunml.dev@example.com" method="post" enctype="text/plain" target="_blank" onsubmit="alert('Thank you for reaching out! I will get back to you soon.')">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required placeholder="Your full name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="name@gmailo.com" />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div class="profile-links" aria-label="Coding profile links">
+      <a href="https://www.skillrack.com/faces/resume.xhtml?id=442281&key=5bbb6a2188f147d73e60a2168277bb0d388c6fd3" title="SkillRack Profile">SkillRack</a>
+      <a href="https://www.naukri.com/code360/profile/56b41740-c5b9-498c-8a8b-8cf61ed735f0" rel="noopener" title="Code360 Profile">Code360</a>
+      <a href="https://leetcode.com/u/varun_varma_91/" target="_blank" rel="noopener" title="LeetCode Profile">LeetCode</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Varun Varma | Machine Learning Developer Portfolio
+</footer>
+
+</body>
+</html>
